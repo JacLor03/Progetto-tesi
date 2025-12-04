@@ -62,4 +62,22 @@ class dashboard_bambinoViewmodel extends ChangeNotifier{
     }
     return map;
   }
+
+  List<Map<String, dynamic>> getProgressiChartData() {
+  return bambino.progressiBambino.map((p) {
+    final totale = p.percorso.numNodi;
+    final completati = p.nodiCompletati;
+
+    double percentuale = 0;
+    if (totale > 0) {
+      percentuale = (completati / totale) * 100;
+    }
+
+    return {
+      "percorso": p.percorso.nome,
+      "percentuale": percentuale,
+    };
+  }).toList();
+}
+
 }
