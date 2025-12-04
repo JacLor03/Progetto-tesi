@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_analista/ui/viewmodels/dashboard_bambinoViewmodel.dart';
 import 'package:software_analista/domain/models/bambino.dart';
-
-// Import dei widget dei grafici Syncfusion
+import 'package:software_analista/ui/widgets/grafico_bubble.dart';
 import 'package:software_analista/ui/widgets/grafico_area.dart';
 import 'package:software_analista/ui/widgets/grafico_barre.dart';
 import 'package:software_analista/ui/widgets/grafico_lineare.dart';
+import 'package:software_analista/ui/widgets/grafico_radialBar.dart';
 import 'package:software_analista/ui/widgets/grafico_scatter.dart';
 import 'package:software_analista/ui/widgets/grafico_torta.dart';
 
@@ -62,6 +62,7 @@ class Dashboard_bambinoScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 10),
+                          Text("Cognome: ${bambino.cognome}"),
                           Text("Data di nascita: ${bambino.dataDiNascita}"),
                           Text("Sesso: ${bambino.sesso}"),
                           Text("ID Bambino: ${bambino.id}"),
@@ -72,20 +73,18 @@ class Dashboard_bambinoScreen extends StatelessWidget {
                   const SizedBox(height: 30),
 
                   BarchartWidget(data: vm.getProgressiChartData()),
-                  const SizedBox(height: 30),
                   LineChartWidget(data: vm.getProgressiChartData()),
-                  const SizedBox(height: 30),
                   PieChartWidget(data: vm.getProgressiChartData()),
-                  const SizedBox(height: 30),
                   ScatterChartWidget(data: vm.getProgressiChartData()),
-                  const SizedBox(height: 30),
                   AreaChartWidget(data: vm.getProgressiChartData()),
-                  const SizedBox(height: 30),
+                  RadialBarChartWidget(data: vm.getProgressiChartData()),
+                  BubbleChartWidget(data: vm.getProgressiChartData()),
+                  
 
 
-                  // Percorsi completati
+                  // Riepilogo Percorsi 
                   const Text(
-                    "Percorsi completati",
+                    "Riepilogo Percorsi",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
