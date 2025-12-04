@@ -8,13 +8,26 @@ class dashboard_bambinoViewmodel extends ChangeNotifier{
 
   dashboard_bambinoViewmodel({
     required Bambino bambino,
-  }) : _bambino = bambino;
+  }) : _bambino = bambino {
+    _init();
+  }
 
   Bambino get bambino => _bambino;
   List<ProgressoPercorso> get progressi => _bambino.progressiBambino;
   bool get isLoading => _isLoading;
 
   set isLoading(bool value) => _isLoading = value;
+
+  Future<void> _init() async {
+  _isLoading = true;
+  notifyListeners();
+
+  await Future.delayed(const Duration(milliseconds: 300)); // Simula caricamento
+
+  _isLoading = false;
+  notifyListeners();
+}
+
 
   Future<void> loadBambino(Bambino b) async {
     isLoading = true;
