@@ -7,7 +7,8 @@ class Bambino{
     final String cognome;
     final DateTime dataDiNascita;
     final Sesso sesso;
-    final List<ProgressoPercorso> progressiBambino;
+    final ProgressoPercorso? progressoBambino;
+    final String? percorsoId;
 
     Bambino({
       required this.id,
@@ -15,7 +16,8 @@ class Bambino{
       required this.cognome,
       required this.dataDiNascita,
       required this.sesso,
-      List<ProgressoPercorso>? progressiBambino,
-  }) : progressiBambino = progressiBambino ?? [];
+      this.percorsoId,
+      this.progressoBambino,
+  });
 
 }

@@ -14,18 +14,17 @@ final List<Bambino> bambiniFinti = [
     cognome: 'Rossi',
     dataDiNascita: DateTime(2019, 5, 12),
     sesso: Sesso.maschio,
-    progressiBambino: [
+    progressoBambino: 
       ProgressoPercorso(percorso: percorsoEmotivo, nodiCompletati: 2),
-      ProgressoPercorso(percorso: percorsoMotorio, nodiCompletati: 5),
-    ]),
+    ),
     Bambino(
       id: '101',
       nome: 'Sofia',
       cognome: 'Verdi',
       dataDiNascita: DateTime(2020, 05, 12),
       sesso: Sesso.femmina,
-      progressiBambino: [
+      progressoBambino: 
         ProgressoPercorso(percorso: percorsoGiocoso, nodiCompletati: 9)
-      ])
+      )
 ];
         

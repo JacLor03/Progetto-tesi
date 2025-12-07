@@ -15,7 +15,7 @@ class BarchartWidget extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: SfCartesianChart(
           primaryXAxis: CategoryAxis(),
-          primaryYAxis: NumericAxis(minimum: 0, maximum: 100),
+          primaryYAxis: NumericAxis(minimum: 0, maximum: 100,interval: 10),
           title: ChartTitle(text: 'Grafico a Barre'),
           series: <CartesianSeries>[
             ColumnSeries<Map<String, dynamic>, String>(

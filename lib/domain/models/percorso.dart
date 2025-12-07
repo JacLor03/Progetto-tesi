@@ -7,7 +7,6 @@ class Percorso{
   final String descrizione;
   final DateTime dataInizio;
   final DateTime? dataFIne;
-  //final ProgressoPercorso progresso;
 
   Percorso({
     required this.id,
@@ -16,7 +15,6 @@ class Percorso{
     required this.descrizione,
     required this.dataInizio,
     this.dataFIne,
-    //required this.progresso,
   });
 
 }

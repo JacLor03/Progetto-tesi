@@ -18,12 +18,12 @@ class Dashboard_bambinoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => dashboard_bambinoViewmodel(bambino: bambino),
+      create: (_) => dashboard_bambinoViewModel(bambino: bambino),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Dashboard Bambino"),
         ),
-        body: Consumer<dashboard_bambinoViewmodel>(
+        body: Consumer<dashboard_bambinoViewModel>(
           builder: (context, vm, child) {
             if (vm.isLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -97,15 +97,20 @@ class Dashboard_bambinoScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: bambino.progressiBambino.map((p) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Text(
-                              "• ${p.percorso.nome} (${p.nodiCompletati}/${p.percorso.numNodi})",
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          );
-                        }).toList(),
+                        children: [
+                          if (bambino.progressoBambino == null)
+                            const Text("Nessun percorso iniziato",
+                            style: TextStyle(fontSize: 16))
+                          else
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Text("• ${bambino.progressoBambino!.percorso.nome}"  //da sostituire quando verrà inserita l'API per prendere i percorsi
+                                          " (${bambino.progressoBambino!.nodiCompletati}" //quando ci sarà l'API si userà solo percorsoId
+                                          "/${bambino.progressoBambino!.percorso.numNodi})",
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ),
+                                    ],
                       ),
                     ),
                   ),

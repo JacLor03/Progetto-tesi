@@ -2,95 +2,64 @@ import 'package:flutter/widgets.dart';
 import 'package:software_analista/domain/models/bambino.dart';
 import 'package:software_analista/domain/models/progressoPercorso.dart';
 
-class dashboard_bambinoViewmodel extends ChangeNotifier{
+class dashboard_bambinoViewModel extends ChangeNotifier {
   Bambino _bambino;
   bool _isLoading = true;
 
-  dashboard_bambinoViewmodel({
-    required Bambino bambino,
-  }) : _bambino = bambino {
+  dashboard_bambinoViewModel({required Bambino bambino}) : _bambino = bambino {
     _init();
   }
 
   Bambino get bambino => _bambino;
-  List<ProgressoPercorso> get progressi => _bambino.progressiBambino;
+  ProgressoPercorso? get progresso => _bambino.progressoBambino;
   bool get isLoading => _isLoading;
 
-  set isLoading(bool value) => _isLoading = value;
-
-  Future<void> _init() async {
-  _isLoading = true;
-  notifyListeners();
-
-  await Future.delayed(const Duration(milliseconds: 300)); // Simula caricamento
-
-  _isLoading = false;
-  notifyListeners();
-}
-
-
-  Future<void> loadBambino(Bambino b) async {
-    isLoading = true;
-    notifyListeners();
-
-    await Future.delayed(const Duration(milliseconds: 300)); // simulazione caricamento
-    _bambino = b;
-
-    isLoading = false;
+  set isLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
+  Future<void> _init() async {
+    isLoading = true;
+    await Future.delayed(const Duration(milliseconds: 300)); // Simula caricamento
+    isLoading = false;
+  }
 
+  Future<void> loadBambino(Bambino b) async {
+    isLoading = true;
+    await Future.delayed(const Duration(milliseconds: 300));
+    _bambino = b;
+    isLoading = false;
+  }
 
-
-
-
-
-
-
-  //temporaneo
-  void aggiornaNodiCompletati(String percorsoNome, int nodiCompletati) {
-    final index = _bambino.progressiBambino
-        .indexWhere((p) => p.percorso.nome == percorsoNome);
-    if (index != -1) {
-      _bambino.progressiBambino[index] = ProgressoPercorso(
-        percorso: _bambino.progressiBambino[index].percorso,
+  /*void aggiornaNodiCompletati(int nodiCompletati) {
+    final p = _bambino.progressoBambino;
+    if (p != null) {
+      _bambino.progressoBambino = ProgressoPercorso(
+        percorsoId: p.percorsoId,
         nodiCompletati: nodiCompletati,
       );
       notifyListeners();
     }
+  }*/
+
+  double percentualeCompletata({int totaleNodi = 10}) {
+    final p = _bambino.progressoBambino;
+    if (p == null || totaleNodi == 0) return 0.0;
+    return (p.nodiCompletati / totaleNodi) * 100;
   }
 
-  double percentualeCompletata(ProgressoPercorso progresso) {
-    final totaleNodi = progresso.percorso.numNodi;
-    if (totaleNodi == 0) return 0.0;
-    return (progresso.nodiCompletati / totaleNodi) * 100;
+  List<Map<String, dynamic>> getProgressiChartData({int totaleNodi = 10}) {
+    final p = _bambino.progressoBambino;
+    if (p == null || p.percorso == null) return [];
+
+    final percentuale = (totaleNodi > 0) ? (p.nodiCompletati / totaleNodi) * 100 : 0.0;
+
+    return [
+      {
+        "percorso": p.percorso!,
+        "percentuale": percentuale,
+      }
+    ];
   }
-
-   // Calcola percentuali per tutti i progressi
-  Map<String, double> percentualiProgressi() {
-    final Map<String, double> map = {};
-    for (var p in _bambino.progressiBambino) {
-      map[p.percorso.id] = percentualeCompletata(p);
-    }
-    return map;
-  }
-
-  List<Map<String, dynamic>> getProgressiChartData() {
-  return bambino.progressiBambino.map((p) {
-    final totale = p.percorso.numNodi;
-    final completati = p.nodiCompletati;
-
-    double percentuale = 0;
-    if (totale > 0) {
-      percentuale = (completati / totale) * 100;
-    }
-
-    return {
-      "percorso": p.percorso.nome,
-      "percentuale": percentuale,
-    };
-  }).toList();
-}
-
 }
