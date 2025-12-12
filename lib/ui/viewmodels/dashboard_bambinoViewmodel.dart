@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:software_analista/datiFinti/dati.dart';
 import 'package:software_analista/domain/models/bambino.dart';
 import 'package:software_analista/domain/models/progressoPercorso.dart';
 
@@ -51,13 +52,17 @@ class dashboard_bambinoViewModel extends ChangeNotifier {
 
   List<Map<String, dynamic>> getProgressiChartData({int totaleNodi = 10}) {
     final p = _bambino.progressoBambino;
-    if (p == null || p.percorso == null) return [];
+    if (p == null) return [];
+
+    final percorso = getPercorsoById(p.percorsoId);
+    if (percorso == null) return [];
+
 
     final percentuale = (totaleNodi > 0) ? (p.nodiCompletati / totaleNodi) * 100 : 0.0;
 
     return [
       {
-        "percorso": p.percorso!,
+        "percorso": percorso.nome,
         "percentuale": percentuale,
       }
     ];

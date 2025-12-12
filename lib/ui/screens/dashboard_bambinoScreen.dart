@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:software_analista/datiFinti/dati.dart';
 import 'package:software_analista/ui/viewmodels/dashboard_bambinoViewmodel.dart';
 import 'package:software_analista/domain/models/bambino.dart';
 import 'package:software_analista/ui/widgets/grafico_bubble.dart';
@@ -101,16 +102,27 @@ class Dashboard_bambinoScreen extends StatelessWidget {
                           if (bambino.progressoBambino == null)
                             const Text("Nessun percorso iniziato",
                             style: TextStyle(fontSize: 16))
-                          else
-                            Padding(
+                          else Builder(
+                            builder: (context) {
+                              final progresso = bambino.progressoBambino!;
+                              final percorso = getPercorsoById(progresso.percorsoId);
+                              if (percorso == null) {
+                                return const Text(
+                                  "Percorso non trovato",
+                                   style: TextStyle(fontSize: 16),
+                                   );
+                              }
+                            return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 4),
-                              child: Text("• ${bambino.progressoBambino!.percorso.nome}"  //da sostituire quando verrà inserita l'API per prendere i percorsi
-                                          " (${bambino.progressoBambino!.nodiCompletati}" //quando ci sarà l'API si userà solo percorsoId
-                                          "/${bambino.progressoBambino!.percorso.numNodi})",
-                                          style: const TextStyle(fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
+                              child: Text(
+                                "• ${percorso.nome} "
+                                "(${progresso.nodiCompletati}/${percorso.numNodi})",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            );
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),

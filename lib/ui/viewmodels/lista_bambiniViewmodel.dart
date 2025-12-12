@@ -37,4 +37,14 @@ class lista_bambiniViewmodel extends ChangeNotifier{
       notifyListeners();
     }
   }
+
+  int calcolaEta(DateTime dataNascita) {
+    final now = DateTime.now();
+    int anni = now.year - dataNascita.year;
+    if (now.month < dataNascita.month ||
+        (now.month == dataNascita.month && now.day < dataNascita.day)) {
+      anni--;
+    }
+    return anni;
+  }
 }

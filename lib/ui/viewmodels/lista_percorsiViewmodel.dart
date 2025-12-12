@@ -5,9 +5,10 @@ import 'package:software_analista/datiFinti/dati.dart';
 class lista_percorsiViewModel extends ChangeNotifier {
   List<Percorso> _percorsi = [];
   bool _isLoading = true;
+  String? errorMessage;
 
   lista_percorsiViewModel() {
-    _init();
+    loadPercorsi();
   }
 
   List<Percorso> get percorsi => _percorsi;
@@ -18,21 +19,26 @@ class lista_percorsiViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _init() async {
+  Future<void> loadPercorsi() async {
     isLoading = true;
     notifyListeners();
 
-    // Simula un piccolo delay come se stessimo caricando da API
-    await Future.delayed(const Duration(milliseconds: 300));
+    try{
+      await Future.delayed(const Duration(milliseconds: 300));
 
-    _percorsi = [
-      percorsoEmotivo,
-      percorsoMotorio,
-      percorsoGiocoso,
-    ];
+      _percorsi = [
+        percorsoEmotivo,
+        percorsoGiocoso,
+        percorsoMotorio
+      ];
 
-    isLoading = false;
-    notifyListeners();
+      errorMessage = null;
+    } catch(e) {
+      errorMessage = "Errore nel caricamento dei percorsi";
+    }
+
+      isLoading = false;
+      notifyListeners();
   }
 
   // Metodo opzionale per filtrare i percorsi

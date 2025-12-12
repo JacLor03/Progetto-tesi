@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:software_analista/ui/screens/lista_bambiniScreen.dart';
 import 'package:software_analista/ui/viewmodels/lista_bambiniViewmodel.dart';
+import 'package:software_analista/ui/viewmodels/lista_percorsiViewmodel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => lista_bambiniViewmodel()..loadBambini(),
+          ),
+        ChangeNotifierProvider(
+          create: (_) => lista_percorsiViewModel()
           ),
       ],
       child: MaterialApp(

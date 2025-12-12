@@ -1,11 +1,11 @@
 import 'package:software_analista/domain/models/percorso.dart';
 
 class ProgressoPercorso {
-  final Percorso percorso; // da sostituire con percorsoId quando avrò l'API
+  final String percorsoId; // da sostituire con percorsoId quando avrò l'API
   final int nodiCompletati;
 
   ProgressoPercorso({
-    required this.percorso,
+    required this.percorsoId,
     required this.nodiCompletati,
   });
 

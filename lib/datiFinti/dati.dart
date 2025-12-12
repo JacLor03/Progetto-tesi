@@ -7,6 +7,7 @@ final percorsoEmotivo = Percorso(id: 'p1', numNodi: 20, nome: 'percorso1', descr
 final percorsoMotorio = Percorso(id: 'p2', numNodi: 15, nome: 'percorso2', descrizione: 'descrizione', dataInizio: DateTime(2025, 11,15));
 final percorsoGiocoso = Percorso(id: 'p3', numNodi: 10, nome: 'percorso3', descrizione: 'descrizione', dataInizio: DateTime(2024, 08,20));
 
+
 final List<Bambino> bambiniFinti = [
   Bambino(
     id: '100',
@@ -15,7 +16,7 @@ final List<Bambino> bambiniFinti = [
     dataDiNascita: DateTime(2019, 5, 12),
     sesso: Sesso.maschio,
     progressoBambino: 
-      ProgressoPercorso(percorso: percorsoEmotivo, nodiCompletati: 2),
+      ProgressoPercorso(percorsoId: percorsoEmotivo.id, nodiCompletati: 2),
     ),
     Bambino(
       id: '101',
@@ -24,7 +25,20 @@ final List<Bambino> bambiniFinti = [
       dataDiNascita: DateTime(2020, 05, 12),
       sesso: Sesso.femmina,
       progressoBambino: 
-        ProgressoPercorso(percorso: percorsoGiocoso, nodiCompletati: 9)
+        ProgressoPercorso(percorsoId: percorsoGiocoso.id, nodiCompletati: 9)
       )
 ];
+
+Percorso? getPercorsoById(String id) {
+  final percorsi = [
+    percorsoEmotivo,
+    percorsoMotorio,
+    percorsoGiocoso,
+  ];
+
+  return percorsi.firstWhere(
+    (p) => p.id == id,
+  );
+}
+
         

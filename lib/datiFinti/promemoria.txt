@@ -1,0 +1,3 @@
+Pulizia codice( per esempio c'è un metodo nello screen)
+
+sistemare errore del pulsante indietro tra le due pagine delle liste
